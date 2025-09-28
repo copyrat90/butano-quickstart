@@ -1,0 +1,7 @@
+{
+    "typeCheckingMode": "strict",
+    "ignore": [
+        "butano-ldtk/tools/LdtkJson.py",
+        "gba-kor-fonts/tools/butano/*.py"
+    ]
+}

@@ -1,0 +1,116 @@
+{
+	"__header__": {
+		"fileType": "LDtk Project JSON",
+		"app": "LDtk",
+		"doc": "https://ldtk.io/json",
+		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
+		"appAuthor": "Sebastien 'deepnight' Benard",
+		"appVersion": "1.5.3",
+		"url": "https://ldtk.io"
+	},
+	"identifier": "configs",
+	"iid": "c8c6b650-8560-11f0-a370-a784b7ab83f8",
+	"uid": 0,
+	"worldX": 0,
+	"worldY": 0,
+	"worldDepth": 0,
+	"pxWid": 240,
+	"pxHei": 160,
+	"__bgColor": "#696A79",
+	"bgColor": null,
+	"useAutoIdentifier": false,
+	"bgRelPath": null,
+	"bgPos": null,
+	"bgPivotX": 0.5,
+	"bgPivotY": 0.5,
+	"__smartColor": "#ADADB5",
+	"__bgPos": null,
+	"externalRelPath": null,
+	"fieldInstances": [],
+	"layerInstances": [
+		{
+			"__identifier": "entities",
+			"__type": "Entities",
+			"__cWid": 15,
+			"__cHei": 10,
+			"__gridSize": 16,
+			"__opacity": 1,
+			"__pxTotalOffsetX": 0,
+			"__pxTotalOffsetY": 0,
+			"__tilesetDefUid": null,
+			"__tilesetRelPath": null,
+			"iid": "ef4bdb70-8560-11f0-a370-4b9e3da69235",
+			"levelId": 0,
+			"layerDefUid": 1,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"visible": true,
+			"optionalRules": [],
+			"intGridCsv": [],
+			"autoLayerTiles": [],
+			"seed": 6864398,
+			"overrideTilesetUid": null,
+			"gridTiles": [],
+			"entityInstances": [
+				{
+					"__identifier": "system_texts",
+					"__grid": [1,1],
+					"__pivot": [0.5,0.5],
+					"__tags": [],
+					"__tile": { "tilesetUid": 4, "x": 144, "y": 32, "w": 16, "h": 16 },
+					"__smartColor": "#808080",
+					"iid": "7050ef70-8560-11f0-b354-9b9fe9f98531",
+					"width": 16,
+					"height": 16,
+					"defUid": 3,
+					"px": [24,24],
+					"fieldInstances": [
+						{ "__identifier": "lang_names", "__type": "Array<String>", "__value": [ "English", "한국어" ], "__tile": null, "defUid": 5, "realEditorValues": [ {
+							"id": "V_String",
+							"params": ["English"]
+						}, {
+							"id": "V_String",
+							"params": ["한국어"]
+						} ] },
+						{ "__identifier": "buttons", "__type": "Array<String>", "__value": [ "Confirm", "Back", "결정", "뒤로" ], "__tile": null, "defUid": 7, "realEditorValues": [ {
+							"id": "V_String",
+							"params": ["Confirm"]
+						}, {
+							"id": "V_String",
+							"params": ["Back"]
+						}, {
+							"id": "V_String",
+							"params": ["결정"]
+						}, {
+							"id": "V_String",
+							"params": ["뒤로"]
+						} ] },
+						{ "__identifier": "title_menus", "__type": "Array<String>", "__value": [ "Start", "Options", "시작", "설정" ], "__tile": null, "defUid": 6, "realEditorValues": [ {
+							"id": "V_String",
+							"params": ["Start"]
+						}, {
+							"id": "V_String",
+							"params": ["Options"]
+						}, {
+							"id": "V_String",
+							"params": ["시작"]
+						}, {
+							"id": "V_String",
+							"params": ["설정"]
+						} ] },
+						{ "__identifier": "title_options_menus", "__type": "Array<String>", "__value": [ "Licenses", "라이선스" ], "__tile": null, "defUid": 11, "realEditorValues": [ {
+							"id": "V_String",
+							"params": ["Licenses"]
+						}, {
+							"id": "V_String",
+							"params": ["라이선스"]
+						} ] }
+					],
+					"__worldX": 24,
+					"__worldY": 24
+				}
+			]
+		}
+	],
+	"__neighbours": []
+}
