@@ -3,8 +3,7 @@
 #include "scn/scenes.h"
 
 #include <bn_generic_pool.h>
-
-#include <memory>
+#include <bn_unique_ptr.h>
 
 namespace bq::scn
 {
@@ -27,6 +26,6 @@ private:
     scene_pool_t* _pool = nullptr;
 };
 
-using scene_ptr = std::unique_ptr<scene, scene_deleter>;
+using scene_ptr = bn::unique_ptr<scene, scene_deleter>;
 
 } // namespace bq::scn
