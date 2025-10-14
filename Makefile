@@ -4,6 +4,7 @@
 # LIBBUTANO is the main directory of butano library (https://github.com/GValiente/butano).
 # BUILDLDTK is the directory where LDtk converted files will be placed.
 # LIBBUTANOLDTK is the root directory of butano-ldtk library (https://github.com/copyrat90/butano-ldtk).
+# LDTKPROJECT is the path to the LDtk project file.
 # PYTHON is the path to the python interpreter.
 # SOURCES is a list of directories containing source code.
 # INCLUDES is a list of directories containing extra header files.
@@ -40,6 +41,7 @@ BUILD       	:=  build
 LIBBUTANO   	:=  libs/butano/butano
 BUILDLDTK   	:=  build_ldtk
 LIBBUTANOLDTK	:=  libs/butano-ldtk
+LDTKPROJECT 	:=  levels/project.ldtk
 LIBISOBUTANO	:=  libs/iso-butano
 BUILDFONTS  	:=  build_fonts
 LIBGBAKORFONTS	:=  libs/gba-kor-fonts
@@ -68,7 +70,7 @@ USERLIBS    	:=
 DEFAULTLIBS 	:=  
 STACKTRACE  	:=  YES
 USERBUILD   	:=  $(BUILDLDTK) $(BUILDFONTS) $(BUILDMISC)
-EXTTOOL     	:=  @$(PYTHON) -B tools/main.py --ldtk-project=levels/project.ldtk --ldtk-build=$(BUILDLDTK) --fonts="$(FONTS)" --texts="$(TEXTS)" --fonts-build=$(BUILDFONTS) --licenses=$(LICENSES) --misc-build=$(BUILDMISC)
+EXTTOOL     	:=  @$(PYTHON) -B tools/main.py --ldtk-project=$(LDTKPROJECT) --ldtk-build=$(BUILDLDTK) --fonts="$(FONTS)" --texts="$(TEXTS)" --fonts-build=$(BUILDFONTS) --licenses=$(LICENSES) --misc-build=$(BUILDMISC)
 
 BQ_DEVBUILD 	:=  
 ifneq ($(strip $(BQ_DEVBUILD)),)
