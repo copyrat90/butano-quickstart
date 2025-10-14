@@ -5,6 +5,7 @@
 
 #include "ibn_stats.h"
 
+#include <bn_common.h>
 #include <bn_core.h>
 
 int main()
@@ -12,8 +13,8 @@ int main()
     bn::core::init();
     ldtk::core::init();
 
-    bq::scn::scene_stack scene_stack;
-    bq::scn::scene_context scene_context(scene_stack);
+    static BN_DATA_EWRAM bq::scn::scene_stack scene_stack;
+    static BN_DATA_EWRAM bq::scn::scene_context scene_context(scene_stack);
 
     if (scene_context.save_data().load())
         scene_stack.reserve_push<bq::scn::splash>(scene_context);
