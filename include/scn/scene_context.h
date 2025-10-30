@@ -1,6 +1,6 @@
 #pragma once
 
-#include "sys/save_data.h"
+#include "sys/config_save.h"
 #include "sys/text_generators.h"
 
 #include "ibn_observer.h"
@@ -26,7 +26,7 @@ public:
 private:
     scene_stack& _scene_stack;
 
-    sys::save_data _save_data;
+    sys::config_save _config_save;
     ibn::transitions _transitions;
     sys::text_generators _text_generators;
 
@@ -43,14 +43,14 @@ public:
         return _scene_stack;
     }
 
-    auto save_data() -> decltype((_save_data))
+    auto config_save() -> decltype((_config_save))
     {
-        return _save_data;
+        return _config_save;
     }
 
-    auto save_data() const -> decltype((_save_data))
+    auto config_save() const -> decltype((_config_save))
     {
-        return _save_data;
+        return _config_save;
     }
 
     auto transitions() -> decltype((_transitions))

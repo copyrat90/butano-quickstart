@@ -86,9 +86,9 @@ bool title_options::update()
         switch (static_cast<ldtk::gen::title_options_menu>(_cursor_idx))
         {
         case ldtk::gen::title_options_menu::lang: {
-            auto& save_data = context().save_data();
-            save_data.set_next_language();
-            save_data.save();
+            auto& config_save = context().config_save();
+            config_save.set_next_language();
+            config_save.save();
             redraw_all();
             break;
         }
@@ -140,7 +140,7 @@ void title_options::redraw_all()
     _menus_sprites.clear();
 
     auto& ctx = context();
-    const auto& save_data = ctx.save_data();
+    const auto& config_save = ctx.config_save();
 
     auto& gens = ctx.text_generators();
     auto& gen = gens.get(MENU_FONT);
@@ -155,7 +155,7 @@ void title_options::redraw_all()
 
     // Heading
     gen_head.generate_top_left(HEADING_POS,
-                               TITLE_MENUS[(int)save_data.language() * (int)ldtk::gen::title_menu::max_count +
+                               TITLE_MENUS[(int)config_save.language() * (int)ldtk::gen::title_menu::max_count +
                                            (int)ldtk::gen::title_menu::options],
                                _heading_sprites);
 
@@ -172,13 +172,13 @@ void title_options::redraw_all()
             static constexpr bn::string_view LANG_PREFIX = "Lang: ";
             gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx], LANG_PREFIX, _menus_sprites);
             gen.generate_top_left(MENUS_X + gen.width(LANG_PREFIX), MENUS_Y[menu_idx],
-                                  LANG_NAMES[(int)save_data.language()], _menus_sprites);
+                                  LANG_NAMES[(int)config_save.language()], _menus_sprites);
         }
         // Back
         else if (menu_idx == static_cast<int>(ldtk::gen::title_options_menu::max_count) - 1)
         {
             gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx],
-                                  BUTTONS[(int)save_data.language() * BUTTONS_MAX_COUNT + BACK_BUTTON_IDX],
+                                  BUTTONS[(int)config_save.language() * BUTTONS_MAX_COUNT + BACK_BUTTON_IDX],
                                   _menus_sprites);
         }
         else
@@ -186,7 +186,7 @@ void title_options::redraw_all()
             // `-2`: Exclude `lang` & `back`
             // `-1`: Exclude `lang`
             const auto menu_text =
-                TITLE_OPTIONS_MENUS[(int)save_data.language() * ((int)ldtk::gen::title_options_menu::max_count - 2) +
+                TITLE_OPTIONS_MENUS[(int)config_save.language() * ((int)ldtk::gen::title_options_menu::max_count - 2) +
                                     (menu_idx - 1)];
             gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx], menu_text, _menus_sprites);
         }

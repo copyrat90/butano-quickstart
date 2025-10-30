@@ -32,7 +32,7 @@ you can use my [butano-template](https://github.com/copyrat90/butano-template) r
       - [ ] [`misc_writer.py`](tools/misc_writer.py#L6)
    - [ ] [`BQ_DEVBUILD`](Makefile#L75)
    - [ ] [`ROMCODE := 2BQE`](Makefile#L63)
-- [ ] Change [`SAVE_MAGIC = "BNQST"`](src/sys/save_data.cpp#L13) to game's unique one
+- [ ] Change [`SAVE_MAGIC = "BNQST"`](src/sys/config_save.cpp#L13) to game's unique one
 - [ ] Change [`ROMTITLE :=`](Makefile#L62) to game's unique one
 - [ ] (Optional) Change filename of [`project.ldtk`](levels/project.ldtk) to your name of the game
    - [ ] Update [`LDTKPROJECT := levels/project.ldtk`](Makefile#L44)

@@ -38,7 +38,7 @@ title::title(ldtk::gen::title_menu cursor, scene_context& ctx) : scene(ctx), _cu
 void title::enter()
 {
     auto& ctx = context();
-    const auto& save_data = ctx.save_data();
+    const auto& config_save = ctx.config_save();
 
     auto& gens = ctx.text_generators();
     auto& gen = gens.get(MENU_FONT);
@@ -54,7 +54,7 @@ void title::enter()
         gens.set_text_color(MENU_FONT, menu_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR);
 
         const auto menu_text =
-            TITLE_MENUS[(int)save_data.language() * (int)ldtk::gen::title_menu::max_count + menu_idx];
+            TITLE_MENUS[(int)config_save.language() * (int)ldtk::gen::title_menu::max_count + menu_idx];
         gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx], menu_text, _menus_sprites);
     }
     _menu_start_idxes.back() = static_cast<std::uint8_t>(_menus_sprites.size());

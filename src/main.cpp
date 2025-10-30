@@ -16,7 +16,7 @@ int main()
     static BN_DATA_EWRAM bq::scn::scene_stack scene_stack;
     static BN_DATA_EWRAM bq::scn::scene_context scene_context(scene_stack);
 
-    if (scene_context.save_data().load())
+    if (scene_context.config_save().load())
         scene_stack.reserve_push<bq::scn::splash>(scene_context);
     else
         scene_stack.reserve_push<bq::scn::lang_select>(scene_context);

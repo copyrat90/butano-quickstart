@@ -1,4 +1,4 @@
-#include "sys/save_data.h"
+#include "sys/config_save.h"
 
 #include "ibn_sram_rw.h"
 
@@ -12,8 +12,8 @@ namespace
 
 constexpr bn::string_view SAVE_MAGIC = "BNQST";
 
-constexpr unsigned SAVE_LOCATION_0 = 0;
-constexpr unsigned SAVE_LOCATION_1 = bn::sram::size() / 2;
+constexpr unsigned SAVE_LOCATION_0 = bn::sram::size() - 512;
+constexpr unsigned SAVE_LOCATION_1 = bn::sram::size() - 256;
 
 constexpr auto LANG_MIN = static_cast<ldtk::gen::lang>(0);
 constexpr auto LANG_MAX = static_cast<ldtk::gen::lang>(31);
@@ -24,17 +24,17 @@ constexpr std::uint32_t FOOTER = 0x5A7EF001; // SAVE FOOT
 
 } // namespace
 
-save_data::save_data()
+config_save::config_save()
 {
     reset();
 }
 
-void save_data::reset()
+void config_save::reset()
 {
     _lang = ldtk::gen::lang::eng;
 }
 
-bool save_data::load()
+bool config_save::load()
 {
     ibn::sram_rw rw(SAVE_MAGIC, SAVE_LOCATION_0, SAVE_LOCATION_1);
 
@@ -48,42 +48,42 @@ bool save_data::load()
     return loaded;
 }
 
-void save_data::save()
+void config_save::save()
 {
     ibn::sram_rw rw(SAVE_MAGIC, SAVE_LOCATION_0, SAVE_LOCATION_1);
     rw.write(*this);
 }
 
-auto save_data::language() const -> ldtk::gen::lang
+auto config_save::language() const -> ldtk::gen::lang
 {
     return _lang;
 }
 
-void save_data::set_language(ldtk::gen::lang lang_)
+void config_save::set_language(ldtk::gen::lang lang_)
 {
     _lang = lang_;
 }
 
-void save_data::set_next_language()
+void config_save::set_next_language()
 {
     _lang = static_cast<ldtk::gen::lang>(((int)_lang + 1) % (int)ldtk::gen::lang::max_count);
 }
 
-void save_data::measure(ibn::bit_stream_measurer& measurer) const
+void config_save::measure(ibn::bit_stream_measurer& measurer) const
 {
     measurer
         .write(_lang, LANG_MIN, LANG_MAX) // [0..31]: 5 bits
         .write(FOOTER);                   // footer: 32 bits
 }
 
-void save_data::write(ibn::bit_stream_writer& writer) const
+void config_save::write(ibn::bit_stream_writer& writer) const
 {
     writer
         .write(_lang, LANG_MIN, LANG_MAX) // [0..31]: 5 bits
         .write(FOOTER);                   // footer: 32 bits
 }
 
-void save_data::read(ibn::bit_stream_reader& reader)
+void config_save::read(ibn::bit_stream_reader& reader)
 {
     std::uint32_t footer = 0;
 

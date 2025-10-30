@@ -75,13 +75,13 @@ bool lang_select::update()
     if (bn::keypad::a_pressed())
     {
         auto& ctx = context();
-        auto& save_data = ctx.save_data();
+        auto& config_save = ctx.config_save();
         auto& scene_stack = ctx.stack();
 
         const auto lang = static_cast<ldtk::gen::lang>(_cursor_idx);
 
-        save_data.set_language(lang);
-        save_data.save();
+        config_save.set_language(lang);
+        config_save.save();
         ctx.lang_changed().notify(lang);
 
         scene_stack.reserve_pop();

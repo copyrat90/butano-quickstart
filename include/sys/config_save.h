@@ -16,13 +16,13 @@ class bit_stream_reader;
 namespace bq::sys
 {
 
-class save_data final
+class config_save final
 {
 public:
-    save_data();
+    config_save();
 
-    save_data(const save_data&) = delete;
-    save_data& operator=(const save_data&) = delete;
+    config_save(const config_save&) = delete;
+    config_save& operator=(const config_save&) = delete;
 
 public:
     void reset();
