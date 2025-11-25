@@ -17,7 +17,6 @@ class title_licenses_list final : public scene
 {
 public:
     title_licenses_list(int license_idx, scene_context&);
-    void enter() override;
 
 public:
     bool update() override;

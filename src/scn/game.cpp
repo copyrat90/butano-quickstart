@@ -7,10 +7,6 @@ game::game(scene_context& ctx) : scene(ctx)
 {
 }
 
-void game::enter()
-{
-}
-
 bool game::update()
 {
     return false;

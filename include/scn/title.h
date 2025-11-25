@@ -17,7 +17,6 @@ class title final : public scene
 {
 public:
     title(ldtk::gen::title_menu cursor, scene_context&);
-    void enter() override;
 
 public:
     bool update() override;

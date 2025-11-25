@@ -36,12 +36,6 @@ constexpr auto get_pos(int license_idx) -> bn::fixed_point
 
 title_licenses_list::title_licenses_list(int license_idx, scene_context& ctx) : scene(ctx), _cursor_idx(license_idx)
 {
-}
-
-void title_licenses_list::enter()
-{
-    auto& ctx = context();
-
     auto& gens = ctx.text_generators();
     auto& gen = gens.get(FONT);
 
@@ -49,13 +43,13 @@ void title_licenses_list::enter()
     const auto prev_alignment = gen.alignment();
     gen.set_left_alignment();
 
-    for (int license_idx = 0; license_idx < gen::LICENSE_NAMES.size(); ++license_idx)
+    for (int idx = 0; idx < gen::LICENSE_NAMES.size(); ++idx)
     {
-        _name_start_idxes[license_idx] = static_cast<std::uint8_t>(_names_sprites.size());
+        _name_start_idxes[idx] = static_cast<std::uint8_t>(_names_sprites.size());
 
-        gens.set_text_color(FONT, license_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR);
+        gens.set_text_color(FONT, idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR);
 
-        gen.generate_top_left(get_pos(license_idx), gen::LICENSE_NAMES[license_idx], _names_sprites);
+        gen.generate_top_left(get_pos(idx), gen::LICENSE_NAMES[idx], _names_sprites);
     }
     _name_start_idxes.back() = static_cast<std::uint8_t>(_names_sprites.size());
 

@@ -15,15 +15,9 @@ public:
     virtual ~scene() = default;
 
     /// @brief Constructor.
-    /// @note Constructor is called @b before removing current scene,
-    /// so you might want to use `enter()` instead for initialization.
     scene(scene_context& ctx) : _ctx(ctx)
     {
     }
-
-    /// @brief Callback to be called when the scene has been activated.
-    /// @note `exit()` doesn't exist, use destructor for that.
-    virtual void enter() {};
 
     scene(const scene&) = delete;
     scene& operator=(const scene&) = delete;

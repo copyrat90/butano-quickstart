@@ -57,10 +57,6 @@ constexpr bn::fixed_point HEADING_POS(20, 20);
 title_options::title_options(ldtk::gen::title_options_menu cursor, scene_context& ctx)
     : scene(ctx), _cursor_idx(static_cast<int>(cursor))
 {
-}
-
-void title_options::enter()
-{
     redraw_all();
 }
 

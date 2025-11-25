@@ -45,10 +45,6 @@ auto create_bg_anim() -> bn::regular_bg_cached_animate_action<2>
 
 splash::splash(scene_context& ctx) : scene(ctx), _bg_anim(create_bg_anim())
 {
-}
-
-void splash::enter()
-{
     bn::music::stop();
     bn::dmg_music::stop();
 

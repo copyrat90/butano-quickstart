@@ -24,12 +24,6 @@ constexpr int MAX_LINES = 14;
 title_license_print::title_license_print(int license_idx, scene_context& ctx)
     : scene(ctx), _typewriter(ctx.text_generators().get(FONT)), _license_idx(license_idx)
 {
-}
-
-void title_license_print::enter()
-{
-    auto& ctx = context();
-
     auto& gens = ctx.text_generators();
     auto& gen = gens.get(FONT);
 

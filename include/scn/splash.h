@@ -6,8 +6,6 @@
 
 #include <cstdint>
 
-#include "ldtk_gen_enums.h"
-
 namespace bq::scn
 {
 
@@ -15,7 +13,6 @@ class splash final : public scene
 {
 public:
     splash(scene_context&);
-    void enter() override;
 
 public:
     bool update() override;

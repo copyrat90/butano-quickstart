@@ -30,11 +30,7 @@ static_assert(LANG_NAMES.size() == (int)ldtk::gen::lang::max_count,
 
 lang_select::lang_select(scene_context& ctx) : scene(ctx)
 {
-}
-
-void lang_select::enter()
-{
-    auto& gens = context().text_generators();
+    auto& gens = ctx.text_generators();
     auto& gen = gens.get(FONT);
 
     const auto prev_color = gens.text_color(FONT);

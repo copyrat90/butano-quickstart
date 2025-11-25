@@ -17,7 +17,6 @@ class title_options final : public scene
 {
 public:
     title_options(ldtk::gen::title_options_menu cursor, scene_context&);
-    void enter() override;
 
 public:
     bool update() override;

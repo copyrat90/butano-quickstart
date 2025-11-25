@@ -17,7 +17,6 @@ class lang_select final : public scene
 {
 public:
     lang_select(scene_context&);
-    void enter() override;
 
 public:
     bool update() override;

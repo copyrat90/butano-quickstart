@@ -16,20 +16,20 @@ void scene_stack::update()
     // Apply reserves
     for (int i = 0; i < _reserved.size(); ++i)
     {
-        scene_ptr& reserved = _reserved[i];
+        auto& reserved = _reserved[i];
         const bn::type_id_t reserved_type = _reserved_types[i];
 
-        // If not `nullptr`, it's a push
+        // If not empty, it's a push
         if (reserved)
         {
             // Apply pushes
             if (!_scenes.empty())
                 _scenes.back()->cover(reserved_type);
 
-            _scenes.push_back(std::move(reserved));
-            _scenes.back()->enter();
+            // Construct the reserved scene
+            _scenes.push_back(reserved(*this));
         }
-        // If `nullptr`, it's a pop
+        // If empty, it's a pop
         else
         {
             // Apply pops
@@ -45,7 +45,7 @@ void scene_stack::update()
 
 void scene_stack::reserve_pop()
 {
-    // `nullptr` means pop
+    // Empty `function` instance means pop
     _reserved.emplace_back(nullptr);
     _reserved_types.push_back(bn::type_id_t{});
 }

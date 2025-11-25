@@ -33,11 +33,6 @@ constexpr bn::array<bn::fixed, (int)ldtk::gen::title_menu::max_count> MENUS_Y{
 
 title::title(ldtk::gen::title_menu cursor, scene_context& ctx) : scene(ctx), _cursor_idx(static_cast<int>(cursor))
 {
-}
-
-void title::enter()
-{
-    auto& ctx = context();
     const auto& config_save = ctx.config_save();
 
     auto& gens = ctx.text_generators();

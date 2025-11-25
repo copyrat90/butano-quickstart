@@ -14,7 +14,6 @@ class title_license_print final : public scene
 {
 public:
     title_license_print(int license_idx, scene_context&);
-    void enter() override;
 
 public:
     bool update() override;

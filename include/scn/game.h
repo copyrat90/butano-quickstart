@@ -9,7 +9,6 @@ class game final : public scene
 {
 public:
     game(scene_context&);
-    void enter() override;
 
 public:
     bool update() override;
