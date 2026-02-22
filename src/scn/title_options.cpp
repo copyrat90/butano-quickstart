@@ -89,8 +89,7 @@ bool title_options::update()
             break;
         }
         case ldtk::gen::title_options_menu::licenses:
-            scene_stack.reserve_pop();
-            scene_stack.reserve_push<scn::title_licenses_list>(0, context());
+            scene_stack.reserve_replace_top_with_delay<scn::title_licenses_list>(0, context());
             break;
         case ldtk::gen::title_options_menu::back:
             back_to_title();
@@ -111,8 +110,7 @@ void title_options::back_to_title()
 {
     auto& scene_stack = context().stack();
 
-    scene_stack.reserve_pop();
-    scene_stack.reserve_push<scn::title>(ldtk::gen::title_menu::options, context());
+    scene_stack.reserve_replace_top_with_delay<scn::title>(ldtk::gen::title_menu::options, context());
 }
 
 void title_options::move_cursor_idx(int diff)

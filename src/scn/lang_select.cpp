@@ -80,8 +80,7 @@ bool lang_select::update()
         config_save.save();
         ctx.lang_changed().notify(lang);
 
-        scene_stack.reserve_pop();
-        scene_stack.reserve_push<scn::splash>(context());
+        scene_stack.reserve_replace_top_with_delay<scn::splash>(context());
     }
 
     return false;

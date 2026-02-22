@@ -110,8 +110,7 @@ void splash::update_fade_out()
         context().transitions().set_alpha(TRANSITION_KINDS, 0);
 
         auto& scene_stack = context().stack();
-        scene_stack.reserve_pop();
-        scene_stack.reserve_push<title>(ldtk::gen::title_menu::start, context());
+        scene_stack.reserve_replace_top_with_delay<title>(ldtk::gen::title_menu::start, context());
     }
 }
 

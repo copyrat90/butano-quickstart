@@ -46,8 +46,7 @@ bool title_license_print::update()
         {
             auto& state_stack = context().stack();
 
-            state_stack.reserve_pop();
-            state_stack.reserve_push<title_licenses_list>(_license_idx, context());
+            state_stack.reserve_replace_top_with_delay<title_licenses_list>(_license_idx, context());
         }
     }
     else

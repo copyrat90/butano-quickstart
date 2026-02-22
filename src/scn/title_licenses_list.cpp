@@ -81,15 +81,13 @@ bool title_licenses_list::update()
     {
         auto& scene_stack = context().stack();
 
-        scene_stack.reserve_pop();
-        scene_stack.reserve_push<title_license_print>(_cursor_idx, context());
+        scene_stack.reserve_replace_top<title_license_print>(_cursor_idx, context());
     }
     else if (bn::keypad::b_pressed())
     {
         auto& scene_stack = context().stack();
 
-        scene_stack.reserve_pop();
-        scene_stack.reserve_push<title_options>(ldtk::gen::title_options_menu::licenses, context());
+        scene_stack.reserve_replace_top_with_delay<title_options>(ldtk::gen::title_options_menu::licenses, context());
     }
 
     return false;

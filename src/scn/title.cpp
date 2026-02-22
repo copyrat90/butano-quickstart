@@ -80,12 +80,11 @@ bool title::update()
         switch (static_cast<ldtk::gen::title_menu>(_cursor_idx))
         {
         case ldtk::gen::title_menu::start:
-            scene_stack.reserve_pop();
-            scene_stack.reserve_push<scn::game>(context());
+            scene_stack.reserve_replace_top_with_delay<scn::game>(context());
             break;
         case ldtk::gen::title_menu::options:
-            scene_stack.reserve_pop();
-            scene_stack.reserve_push<scn::title_options>(ldtk::gen::title_options_menu::lang, context());
+            scene_stack.reserve_replace_top_with_delay<scn::title_options>(ldtk::gen::title_options_menu::lang,
+                                                                           context());
             break;
         default:
             BN_ERROR("Invalid cursor idx: ", _cursor_idx);
