@@ -48,7 +48,6 @@ splash::splash(scene_context& ctx) : scene(ctx), _bg_anim(create_bg_anim())
     bn::music::stop();
     bn::dmg_music::stop();
 
-    bn::dmg_music::set_master_volume(bn::dmg_music_master_volume::FULL);
     bn::dmg_music_items::signature_sound.play(1, false);
 
     auto bg = _bg_anim.regular_bg();

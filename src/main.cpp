@@ -7,11 +7,14 @@
 
 #include <bn_common.h>
 #include <bn_core.h>
+#include <bn_dmg_music.h>
 
 int main()
 {
     bn::core::init();
     ldtk::core::init();
+
+    bn::dmg_music::set_master_volume(bn::dmg_music_master_volume::FULL);
 
     static BN_DATA_EWRAM bq::scn::scene_stack scene_stack;
     static BN_DATA_EWRAM bq::scn::scene_context scene_context(scene_stack);
