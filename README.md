@@ -39,4 +39,5 @@ you can use my [butano-template](https://github.com/copyrat90/butano-template) r
    - [ ] Change folder name of [`levels/project/`](levels/project/)
    - [ ] Update [`"externalRelPath"` in `project.ldtk`](levels/project.ldtk#L324)
    - [ ] Update [LDtk backups path in `.gitignore`](.gitignore#L19)
+- [ ] Replace or remove the [`LICENSE`](LICENSE)
 - [ ] Replace or remove this [`README.md`](README.md)
