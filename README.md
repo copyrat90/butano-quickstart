@@ -39,12 +39,12 @@ Open [`libs/iso-butano/tools/ibn_stats.lua`](libs/iso-butano/tools/ibn_stats.lua
 - [ ] Change `BQ` prefix to game's unique one
    - [ ] `namespace bq`
       - [ ] [`misc_writer.py`](tools/misc_writer.py#L6)
-   - [ ] [`BQ_DEVBUILD`](Makefile#L75)
-   - [ ] [`ROMCODE := 2BQE`](Makefile#L63)
+   - [ ] [`BQ_DEVBUILD`](Makefile#L78)
+   - [ ] [`ROMCODE := 2BQE`](Makefile#L66)
 - [ ] Change [`SAVE_MAGIC = "BNQST"`](src/ut/config_save.cpp#L13) to game's unique one
-- [ ] Change [`ROMTITLE :=`](Makefile#L62) to game's unique one
+- [ ] Change [`ROMTITLE :=`](Makefile#L65) to game's unique one
 - [ ] (Optional) Change filename of [`project.ldtk`](levels/project.ldtk) to your name of the game
-   - [ ] Update [`LDTKPROJECT := levels/project.ldtk`](Makefile#L44)
+   - [ ] Update [`LDTKPROJECT := levels/project.ldtk`](Makefile#L46)
    - [ ] Change folder name of [`levels/project/`](levels/project/)
    - [ ] Update [`"externalRelPath"` in `project.ldtk`](levels/project.ldtk#L324)
    - [ ] Update [LDtk backups path in `.gitignore`](.gitignore#L19)
