@@ -27,7 +27,9 @@ private:
     void recolor_menu(int menu_idx);
 
 private:
-    bn::vector<bn::sprite_ptr, 128> _menus_sprites;
+    bn::vector<bn::sprite_ptr, 28> _git_ver_sprites;
+
+    bn::vector<bn::sprite_ptr, 100> _menus_sprites;
     bn::array<std::uint8_t, (int)ldtk::gen::title_menu::max_count + 1> _menu_start_idxes;
 
     int _cursor_idx;

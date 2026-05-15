@@ -74,6 +74,43 @@ def write_license_header(
         header.write(f"}} // namespace {NAMESPACE}::gen\n")
 
 
+def write_git_ver_header(build_folder_path: Path):
+    build_include_path = build_folder_path.joinpath("include/gen")
+    git_ver_header_path = build_include_path.joinpath("git_ver.h")
+
+    UNKNOWN_VER: Final[str] = '"unknown-ver"'
+
+    prev_git_ver = UNKNOWN_VER
+
+    if git_ver_header_path.exists():
+        with open(git_ver_header_path, encoding="utf-8") as header:
+            # ignore first few lines
+            for _ in range(2):
+                header.readline()
+            prev_git_ver = header.readline().split()[-1]
+
+    cur_git_ver = UNKNOWN_VER
+    try:
+        import subprocess
+
+        cur_git_ver = (
+            subprocess.check_output(
+                ["git", "--no-pager", "describe", "--tags", "--always", "--dirty"],
+                stderr=subprocess.DEVNULL,
+            )
+            .strip()
+            .decode("utf-8")
+        )
+        cur_git_ver = f'"{cur_git_ver}"'
+    except:
+        pass
+
+    if cur_git_ver != prev_git_ver or not git_ver_header_path.exists():
+        with open(git_ver_header_path, "w", encoding="utf-8") as header:
+            header.write("#pragma once\n\n")
+            header.write(f"#define GIT_VER {cur_git_ver}\n")
+
+
 def write_miscs(license_folder_path: Path, build_folder_path: Path):
     try:
         build_folder_path.joinpath("include/gen").mkdir(parents=True, exist_ok=True)
@@ -83,6 +120,7 @@ def write_miscs(license_folder_path: Path, build_folder_path: Path):
         tools_mtime = max(p.stat().st_mtime for p in tools_path.glob("*.py"))
 
         write_license_header(license_folder_path, build_folder_path, tools_mtime)
+        write_git_ver_header(build_folder_path)
 
     except:
         remove_built_files(build_folder_path)

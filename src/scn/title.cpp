@@ -1,10 +1,13 @@
 #include "scn/title.h"
 
+#include "dev/devbuild.h"
+#include "gen/git_ver.h"
 #include "scn/scene_context.h"
 #include "scn/scene_stack.h"
 #include "sys/configs.h"
 
 #include <bn_colors.h>
+#include <bn_display.h>
 #include <bn_keypad.h>
 #include <bn_string_view.h>
 
@@ -13,6 +16,10 @@ namespace bq::scn
 
 namespace
 {
+
+constexpr auto GIT_VER_FONT = sys::text_generators::font::GALMURI_7;
+constexpr bn::color GIT_VER_COLOR = bn::colors::gray;
+constexpr bn::fixed_point GIT_VER_POSITION(bn::display::width() - 8, 8);
 
 constexpr auto MENU_FONT = sys::text_generators::font::GALMURI_11;
 
@@ -36,26 +43,50 @@ title::title(ldtk::gen::title_menu cursor, scene_context& ctx) : scene(ctx), _cu
     const auto& config_save = ctx.config_save();
 
     auto& gens = ctx.text_generators();
-    auto& gen = gens.get(MENU_FONT);
 
-    const auto prev_color = gens.text_color(MENU_FONT);
-    const auto prev_alignment = gen.alignment();
-    gen.set_left_alignment();
-
-    for (int menu_idx = 0; menu_idx < (int)ldtk::gen::title_menu::max_count; ++menu_idx)
+    // git ver sprites
     {
-        _menu_start_idxes[menu_idx] = static_cast<std::uint8_t>(_menus_sprites.size());
+        auto& gen = gens.get(GIT_VER_FONT);
 
-        gens.set_text_color(MENU_FONT, menu_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR);
+        const auto prev_color = gens.text_color(GIT_VER_FONT);
+        const auto prev_alignment = gen.alignment();
 
-        const auto menu_text =
-            TITLE_MENUS[(int)config_save.language() * (int)ldtk::gen::title_menu::max_count + menu_idx];
-        gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx], menu_text, _menus_sprites);
+        gen.set_right_alignment();
+        gens.set_text_color(GIT_VER_FONT, GIT_VER_COLOR);
+
+        gen.generate_top_left(GIT_VER_POSITION, GIT_VER, _git_ver_sprites);
+#if BQ_DEVBUILD
+        gen.generate_top_left(GIT_VER_POSITION + bn::fixed_point(0, 12), "devbuild", _git_ver_sprites);
+#endif
+
+        gen.set_alignment(prev_alignment);
+        gens.set_text_color(GIT_VER_FONT, prev_color);
     }
-    _menu_start_idxes.back() = static_cast<std::uint8_t>(_menus_sprites.size());
 
-    gen.set_alignment(prev_alignment);
-    gens.set_text_color(MENU_FONT, prev_color);
+    // menu sprites
+    {
+        auto& gen = gens.get(MENU_FONT);
+
+        const auto prev_color = gens.text_color(MENU_FONT);
+        const auto prev_alignment = gen.alignment();
+        gen.set_left_alignment();
+
+        for (int menu_idx = 0; menu_idx < (int)ldtk::gen::title_menu::max_count; ++menu_idx)
+        {
+            _menu_start_idxes[menu_idx] = static_cast<std::uint8_t>(_menus_sprites.size());
+
+            gens.set_text_color(MENU_FONT,
+                                menu_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR);
+
+            const auto menu_text =
+                TITLE_MENUS[(int)config_save.language() * (int)ldtk::gen::title_menu::max_count + menu_idx];
+            gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx], menu_text, _menus_sprites);
+        }
+        _menu_start_idxes.back() = static_cast<std::uint8_t>(_menus_sprites.size());
+
+        gen.set_alignment(prev_alignment);
+        gens.set_text_color(MENU_FONT, prev_color);
+    }
 }
 
 bool title::update()
@@ -75,16 +106,16 @@ bool title::update()
 
     if (bn::keypad::a_pressed())
     {
-        auto& scene_stack = context().stack();
+        auto& ctx = context();
+        auto& scene_stack = ctx.stack();
 
         switch (static_cast<ldtk::gen::title_menu>(_cursor_idx))
         {
         case ldtk::gen::title_menu::start:
-            scene_stack.reserve_replace_top_with_delay<scn::game>(context());
+            scene_stack.reserve_replace_top_with_delay<scn::game>(ctx);
             break;
         case ldtk::gen::title_menu::options:
-            scene_stack.reserve_replace_top_with_delay<scn::title_options>(ldtk::gen::title_options_menu::lang,
-                                                                           context());
+            scene_stack.reserve_replace_top_with_delay<scn::title_options>(ldtk::gen::title_options_menu::lang, ctx);
             break;
         default:
             BN_ERROR("Invalid cursor idx: ", _cursor_idx);
