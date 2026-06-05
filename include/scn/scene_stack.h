@@ -55,11 +55,18 @@ private:
     template <std::derived_from<scene> Scene, typename... Args>
     void reserve_add_impl(reserved_change::kind change_kind, bool delay_frame, Args&&... args)
     {
+        BN_ASSERT(!_reserved_changes.full(), "Too many scene changes reserved (max ", _reserved_changes.max_size(),
+                  ")");
+
         _reserved_changes.emplace_back(
             change_kind, delay_frame, bn::type_id<Scene>(),
-            [... args = wrapped_value<Args>{std::forward<Args>(args)}](scene_stack& self) mutable {
+            [... args = wrapped_value<Args>{std::forward<Args>(args)}]([[maybe_unused]] scene_stack& self) mutable {
+#if BQ_CFG_POOL_SCENES
                 return scene_ptr(&self._scene_pool.create<Scene>(std::forward<Args>(args.value)...),
                                  scene_deleter(self._scene_pool));
+#else
+                return bn::make_unique<Scene>(std::forward<Args>(args.value)...);
+#endif
             });
     }
 
@@ -127,7 +134,9 @@ public:
     void reserve_clear();
 
 private:
+#if BQ_CFG_POOL_SCENES
     scene_pool_t _scene_pool;
+#endif
     bn::vector<scene_ptr, MAX_SCENE_COUNT> _scenes;
 
     bn::vector<reserved_change, MAX_SCENE_COUNT> _reserved_changes;

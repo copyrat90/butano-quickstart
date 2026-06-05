@@ -33,10 +33,12 @@ void scene_stack::update()
                 IBN_STATS_UPDATE;
             }
 
+            BN_ASSERT(!_scenes.full(), "Too many scenes to push (max ", _scenes.max_size(), ")");
             _scenes.push_back(reserved.new_scene_factory(*this));
             break;
 
         case reserved_change::kind::POP:
+            BN_ASSERT(!_scenes.empty(), "No scene to pop");
             _scenes.pop_back();
 
             if (reserved.delay_frame)
@@ -79,18 +81,24 @@ void scene_stack::update()
 
 void scene_stack::reserve_pop()
 {
+    BN_ASSERT(!_reserved_changes.full(), "Too many scene changes reserved (max ", _reserved_changes.max_size(), ")");
+
     _reserved_changes.emplace_back(reserved_change::kind::POP, false, bn::type_id_t{},
                                    reserved_change::new_scene_factory_t{});
 }
 
 void scene_stack::reserve_pop_with_delay()
 {
+    BN_ASSERT(!_reserved_changes.full(), "Too many scene changes reserved (max ", _reserved_changes.max_size(), ")");
+
     _reserved_changes.emplace_back(reserved_change::kind::POP, true, bn::type_id_t{},
                                    reserved_change::new_scene_factory_t{});
 }
 
 void scene_stack::reserve_clear()
 {
+    BN_ASSERT(!_reserved_changes.full(), "Too many scene changes reserved (max ", _reserved_changes.max_size(), ")");
+
     _reserved_changes.emplace_back(reserved_change::kind::CLEAR, false, bn::type_id_t{},
                                    reserved_change::new_scene_factory_t{});
 }
