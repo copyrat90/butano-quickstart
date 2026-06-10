@@ -5,7 +5,7 @@
 
 #include <bn_colors.h>
 
-namespace bq::sys
+namespace bq::ut
 {
 
 constexpr auto get_config_entity(ldtk::gen::entity_ident config_entity_ident) -> const ldtk::entity&
@@ -25,4 +25,4 @@ constexpr auto get_config_entity(ldtk::gen::entity_ident config_entity_ident) ->
 inline constexpr bn::color TEXT_HIGHLIGHT_COLOR = bn::colors::yellow;
 inline constexpr bn::color TEXT_NORMAL_COLOR = bn::colors::white;
 
-} // namespace bq::sys
+} // namespace bq::ut

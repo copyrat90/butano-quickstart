@@ -8,7 +8,7 @@
 
 #include <cstdint>
 
-namespace bq::sys
+namespace bq::ut
 {
 
 class text_generators final
@@ -44,4 +44,4 @@ private:
     bn::array<bn::array<bn::color, 16>, (int)font::MAX_COUNT> _pal_colors;
 };
 
-} // namespace bq::sys
+} // namespace bq::ut

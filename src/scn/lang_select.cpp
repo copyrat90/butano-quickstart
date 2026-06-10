@@ -2,7 +2,7 @@
 
 #include "scn/scene_context.h"
 #include "scn/scene_stack.h"
-#include "sys/configs.h"
+#include "ut/configs.h"
 
 #include <bn_colors.h>
 #include <bn_fixed.h>
@@ -16,10 +16,10 @@ namespace bq::scn
 namespace
 {
 
-constexpr auto FONT = sys::text_generators::font::GALMURI_11;
+constexpr auto FONT = ut::text_generators::font::GALMURI_11;
 constexpr bn::fixed LINE_SPACING = 18;
 
-constexpr auto LANG_NAMES = sys::get_config_entity(ldtk::gen::entity_ident::system_texts)
+constexpr auto LANG_NAMES = ut::get_config_entity(ldtk::gen::entity_ident::system_texts)
                                 .get_field(ldtk::gen::entity_field_ident::ENTITY_system_texts_FIELD_lang_names)
                                 .get<bn::span<const bn::string_view>>();
 
@@ -41,7 +41,7 @@ lang_select::lang_select(scene_context& ctx) : scene(ctx)
     {
         _lang_start_idxes[lang_idx] = static_cast<std::uint8_t>(_texts_sprites.size());
 
-        gens.set_text_color(FONT, lang_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR);
+        gens.set_text_color(FONT, lang_idx == _cursor_idx ? ut::TEXT_HIGHLIGHT_COLOR : ut::TEXT_NORMAL_COLOR);
 
         const bn::fixed y_idx = lang_idx - bn::fixed(LANG_NAMES.size() - 1) / 2;
         const bn::fixed y = LINE_SPACING * y_idx;
@@ -96,7 +96,7 @@ void lang_select::recolor_lang(ldtk::gen::lang lang)
     const int lang_idx = static_cast<int>(lang);
 
     bn::array<bn::color, 16> colors{};
-    colors[1] = lang_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR;
+    colors[1] = lang_idx == _cursor_idx ? ut::TEXT_HIGHLIGHT_COLOR : ut::TEXT_NORMAL_COLOR;
 
     for (int spr_idx = _lang_start_idxes[lang_idx]; spr_idx < _lang_start_idxes[lang_idx + 1]; ++spr_idx)
         _texts_sprites[spr_idx].set_palette(bn::sprite_palette_item(colors, bn::bpp_mode::BPP_4));

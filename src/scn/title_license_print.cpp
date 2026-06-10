@@ -13,7 +13,7 @@ namespace bq::scn
 namespace
 {
 
-constexpr auto FONT = sys::text_generators::font::GALMURI_7;
+constexpr auto FONT = ut::text_generators::font::GALMURI_7;
 
 constexpr bn::fixed_point TEXT_TOP_LEFT_POS(10, 10);
 constexpr bn::fixed LINE_SPACING = 10;

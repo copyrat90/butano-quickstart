@@ -1,7 +1,7 @@
 #pragma once
 
-#include "sys/config_save.h"
-#include "sys/text_generators.h"
+#include "ut/config_save.h"
+#include "ut/text_generators.h"
 
 #include "ibn_observer.h"
 #include "ibn_transitions.h"
@@ -26,9 +26,9 @@ public:
 private:
     scene_stack& _scene_stack;
 
-    sys::config_save _config_save;
+    ut::config_save _config_save;
     ibn::transitions _transitions;
-    sys::text_generators _text_generators;
+    ut::text_generators _text_generators;
 
     ibn::subject<void(ldtk::gen::lang)> _lang_changed;
 

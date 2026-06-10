@@ -2,7 +2,7 @@
 
 #include "scn/scene_context.h"
 #include "scn/scene_stack.h"
-#include "sys/configs.h"
+#include "ut/configs.h"
 
 #include <bn_display.h>
 #include <bn_keypad.h>
@@ -13,7 +13,7 @@ namespace bq::scn
 namespace
 {
 
-constexpr auto FONT = sys::text_generators::font::GALMURI_7;
+constexpr auto FONT = ut::text_generators::font::GALMURI_7;
 
 constexpr int COLUMNS = 2;
 
@@ -47,7 +47,7 @@ title_licenses_list::title_licenses_list(int license_idx, scene_context& ctx) : 
     {
         _name_start_idxes[idx] = static_cast<std::uint8_t>(_names_sprites.size());
 
-        gens.set_text_color(FONT, idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR);
+        gens.set_text_color(FONT, idx == _cursor_idx ? ut::TEXT_HIGHLIGHT_COLOR : ut::TEXT_NORMAL_COLOR);
 
         gen.generate_top_left(get_pos(idx), gen::LICENSE_NAMES[idx], _names_sprites);
     }
@@ -101,7 +101,7 @@ void title_licenses_list::move_cursor_idx(int diff)
 void title_licenses_list::recolor_license(int license_idx)
 {
     bn::array<bn::color, 16> colors{};
-    colors[1] = license_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR;
+    colors[1] = license_idx == _cursor_idx ? ut::TEXT_HIGHLIGHT_COLOR : ut::TEXT_NORMAL_COLOR;
 
     for (int spr_idx = _name_start_idxes[license_idx]; spr_idx < _name_start_idxes[license_idx + 1]; ++spr_idx)
         _names_sprites[spr_idx].set_palette(bn::sprite_palette_item(colors, bn::bpp_mode::BPP_4));

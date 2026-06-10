@@ -2,7 +2,7 @@
 
 #include "scn/scene_context.h"
 #include "scn/scene_stack.h"
-#include "sys/configs.h"
+#include "ut/configs.h"
 
 #include <bn_colors.h>
 #include <bn_keypad.h>
@@ -13,18 +13,18 @@ namespace bq::scn
 namespace
 {
 
-constexpr auto HEADING_FONT = sys::text_generators::font::GALMURI_11;
-constexpr auto MENU_FONT = sys::text_generators::font::GALMURI_11;
+constexpr auto HEADING_FONT = ut::text_generators::font::GALMURI_11;
+constexpr auto MENU_FONT = ut::text_generators::font::GALMURI_11;
 
-constexpr auto TITLE_MENUS = sys::get_config_entity(ldtk::gen::entity_ident::system_texts)
+constexpr auto TITLE_MENUS = ut::get_config_entity(ldtk::gen::entity_ident::system_texts)
                                  .get_field(ldtk::gen::entity_field_ident::ENTITY_system_texts_FIELD_title_menus)
                                  .get<bn::span<const bn::string_view>>();
 
-constexpr auto LANG_NAMES = sys::get_config_entity(ldtk::gen::entity_ident::system_texts)
+constexpr auto LANG_NAMES = ut::get_config_entity(ldtk::gen::entity_ident::system_texts)
                                 .get_field(ldtk::gen::entity_field_ident::ENTITY_system_texts_FIELD_lang_names)
                                 .get<bn::span<const bn::string_view>>();
 
-constexpr auto BUTTONS = sys::get_config_entity(ldtk::gen::entity_ident::system_texts)
+constexpr auto BUTTONS = ut::get_config_entity(ldtk::gen::entity_ident::system_texts)
                              .get_field(ldtk::gen::entity_field_ident::ENTITY_system_texts_FIELD_buttons)
                              .get<bn::span<const bn::string_view>>();
 
@@ -34,7 +34,7 @@ constexpr int BUTTONS_MAX_COUNT = BUTTONS.size() / (int)ldtk::gen::lang::max_cou
 constexpr int BACK_BUTTON_IDX = 1;
 
 constexpr auto TITLE_OPTIONS_MENUS =
-    sys::get_config_entity(ldtk::gen::entity_ident::system_texts)
+    ut::get_config_entity(ldtk::gen::entity_ident::system_texts)
         .get_field(ldtk::gen::entity_field_ident::ENTITY_system_texts_FIELD_title_options_menus)
         .get<bn::span<const bn::string_view>>();
 
@@ -122,7 +122,7 @@ void title_options::move_cursor_idx(int diff)
 void title_options::recolor_menu(int menu_idx)
 {
     bn::array<bn::color, 16> colors{};
-    colors[1] = menu_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR;
+    colors[1] = menu_idx == _cursor_idx ? ut::TEXT_HIGHLIGHT_COLOR : ut::TEXT_NORMAL_COLOR;
 
     for (int spr_idx = _menu_start_idxes[menu_idx]; spr_idx < _menu_start_idxes[menu_idx + 1]; ++spr_idx)
         _menus_sprites[spr_idx].set_palette(bn::sprite_palette_item(colors, bn::bpp_mode::BPP_4));
@@ -158,7 +158,7 @@ void title_options::redraw_all()
     {
         _menu_start_idxes[menu_idx] = static_cast<std::uint8_t>(_menus_sprites.size());
 
-        gens.set_text_color(MENU_FONT, menu_idx == _cursor_idx ? sys::TEXT_HIGHLIGHT_COLOR : sys::TEXT_NORMAL_COLOR);
+        gens.set_text_color(MENU_FONT, menu_idx == _cursor_idx ? ut::TEXT_HIGHLIGHT_COLOR : ut::TEXT_NORMAL_COLOR);
 
         // Lang: English
         if (menu_idx == 0)

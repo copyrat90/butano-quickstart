@@ -1,6 +1,6 @@
-#include "sys/text_generators.h"
+#include "ut/text_generators.h"
 
-#include "sys/configs.h"
+#include "ut/configs.h"
 
 #include <bn_assert.h>
 #include <bn_colors.h>
@@ -11,7 +11,7 @@
 #include "galmuri7_sprite_font.h"
 #include "galmuri9_sprite_font.h"
 
-namespace bq::sys
+namespace bq::ut
 {
 
 text_generators::text_generators()
@@ -21,7 +21,8 @@ text_generators::text_generators()
           ibn::sprite_text_generator(galmuri11_sprite_font),
           ibn::sprite_text_generator(galmuri11_bold_sprite_font),
           ibn::sprite_text_generator(galmuri11_condensed_sprite_font),
-      }, _pal_colors{}
+      },
+      _pal_colors{}
 {
     for (int i = 0; i < _generators.size(); ++i)
     {
@@ -58,4 +59,4 @@ void text_generators::set_text_color(font kind, bn::color color)
     _pal_colors[(int)kind][1] = color;
 }
 
-} // namespace bq::sys
+} // namespace bq::ut

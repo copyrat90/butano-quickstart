@@ -13,7 +13,7 @@ class bit_stream_reader;
 
 } // namespace ibn
 
-namespace bq::sys
+namespace bq::ut
 {
 
 class config_save final
@@ -44,4 +44,4 @@ private:
     ldtk::gen::lang _lang;
 };
 
-} // namespace bq::sys
+} // namespace bq::ut

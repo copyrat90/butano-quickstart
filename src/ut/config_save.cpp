@@ -1,10 +1,10 @@
-#include "sys/config_save.h"
+#include "ut/config_save.h"
 
 #include "ibn_sram_rw.h"
 
 #include <type_traits>
 
-namespace bq::sys
+namespace bq::ut
 {
 
 namespace
@@ -95,4 +95,4 @@ void config_save::read(ibn::bit_stream_reader& reader)
         reader.set_fail();
 }
 
-} // namespace bq::sys
+} // namespace bq::ut
