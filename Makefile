@@ -72,7 +72,7 @@ STACKTRACE  	:=  YES
 USERBUILD   	:=  $(BUILDLDTK) $(BUILDFONTS) $(BUILDMISC)
 EXTTOOL     	:=  @$(PYTHON) -B tools/main.py --ldtk-project=$(LDTKPROJECT) --ldtk-build=$(BUILDLDTK) --fonts="$(FONTS)" --texts="$(TEXTS)" --fonts-build=$(BUILDFONTS) --licenses=$(LICENSES) --misc-build=$(BUILDMISC)
 
-BQ_DEVBUILD 	:=  
+BQ_DEVBUILD 	:=  true
 ifneq ($(strip $(BQ_DEVBUILD)),)
 	SOURCES 	+=  src/dev
 	USERFLAGS	+=  -DBQ_DEVBUILD=true -DIBN_CFG_STATS_ENABLED=true
