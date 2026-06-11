@@ -13,8 +13,13 @@ you can use my [butano-template](https://github.com/copyrat90/butano-template) r
 
 ## Setup
 
+### Setting up build environment
+
+1. Setup dependencies for Butano with [devkitARM](https://gvaliente.github.io/butano/getting_started.html) or [Wonderful Toolchain](https://gvaliente.github.io/butano/getting_started_wt.html).
+   * Butano itself is included as a submodule, so you don't need to manually download it.
 1. **Recursively** clone this repo.
 1. `pip install -r libs/butano-ldtk/requirements.txt`
+1. That's it, you can now run `make -j$(nproc)` to build the project.
 
 ### Finding include paths with VSCode C/C++ extension
 
@@ -23,6 +28,10 @@ you can use my [butano-template](https://github.com/copyrat90/butano-template) r
 ### Setting up debugger
 
 [See this guide.](https://felixjones.co.uk/mgba_gdb/vscode.html)
+
+### Using stats viewer
+
+Open [`libs/iso-butano/tools/ibn_stats.lua`](libs/iso-butano/tools/ibn_stats.lua) with `Debug > Script Window` in [MesenCE](https://github.com/nesdev-org/MesenCE).
 
 
 ## Checklist
