@@ -33,28 +33,28 @@ text_generators::text_generators()
 
 auto text_generators::get(font kind) -> ibn::sprite_text_generator&
 {
-    BN_ASSERT(kind < font::MAX_COUNT, "Invalid font kind: ", (int)kind);
+    BN_ASSERT(static_cast<int>(kind) < ut::size_of_enum<font>(), "Invalid font kind: ", (int)kind);
 
     return _generators[(int)kind];
 }
 
 auto text_generators::get(font kind) const -> const ibn::sprite_text_generator&
 {
-    BN_ASSERT(kind < font::MAX_COUNT, "Invalid font kind: ", (int)kind);
+    BN_ASSERT(static_cast<int>(kind) < ut::size_of_enum<font>(), "Invalid font kind: ", (int)kind);
 
     return _generators[(int)kind];
 }
 
 auto text_generators::text_color(font kind) const -> bn::color
 {
-    BN_ASSERT(kind < font::MAX_COUNT, "Invalid font kind: ", (int)kind);
+    BN_ASSERT(static_cast<int>(kind) < ut::size_of_enum<font>(), "Invalid font kind: ", (int)kind);
 
     return _pal_colors[(int)kind][1];
 }
 
 void text_generators::set_text_color(font kind, bn::color color)
 {
-    BN_ASSERT(kind < font::MAX_COUNT, "Invalid font kind: ", (int)kind);
+    BN_ASSERT(static_cast<int>(kind) < ut::size_of_enum<font>(), "Invalid font kind: ", (int)kind);
 
     _pal_colors[(int)kind][1] = color;
 }

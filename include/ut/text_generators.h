@@ -3,6 +3,8 @@
 // This supports newline character (`\n`)
 #include "ibn_sprite_text_generator.h"
 
+#include "ut/enum_utils.h"
+
 #include <bn_array.h>
 #include <bn_color.h>
 
@@ -21,8 +23,6 @@ public:
         GALMURI_11,
         GALMURI_11_BOLD,
         GALMURI_11_CONDENSED,
-
-        MAX_COUNT
     };
 
 public:
@@ -40,8 +40,8 @@ public:
     void set_text_color(font, bn::color);
 
 private:
-    bn::array<ibn::sprite_text_generator, (int)font::MAX_COUNT> _generators;
-    bn::array<bn::array<bn::color, 16>, (int)font::MAX_COUNT> _pal_colors;
+    bn::array<ibn::sprite_text_generator, ut::size_of_enum<font>()> _generators;
+    bn::array<bn::array<bn::color, 16>, ut::size_of_enum<font>()> _pal_colors;
 };
 
 } // namespace bq::ut

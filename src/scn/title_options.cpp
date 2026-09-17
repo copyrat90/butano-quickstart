@@ -28,9 +28,9 @@ constexpr auto BUTTONS = ut::get_config_entity(ldtk::gen::entity_ident::system_t
                              .get_field(ldtk::gen::entity_field_ident::ENTITY_system_texts_FIELD_buttons)
                              .get<bn::span<const bn::string_view>>();
 
-static_assert(BUTTONS.size() % (int)ldtk::gen::lang::max_count == 0,
+static_assert(BUTTONS.size() % ut::size_of_enum<ldtk::gen::lang>() == 0,
               "buttons are missing for some lang in system_texts.buttons");
-constexpr int BUTTONS_MAX_COUNT = BUTTONS.size() / (int)ldtk::gen::lang::max_count;
+constexpr int BUTTONS_MAX_COUNT = BUTTONS.size() / ut::size_of_enum<ldtk::gen::lang>();
 constexpr int BACK_BUTTON_IDX = 1;
 
 constexpr auto TITLE_OPTIONS_MENUS =
@@ -40,11 +40,11 @@ constexpr auto TITLE_OPTIONS_MENUS =
 
 // `-2`: Exclude `lang` & `back`
 static_assert(TITLE_OPTIONS_MENUS.size() ==
-                  ((int)ldtk::gen::title_options_menu::max_count - 2) * (int)ldtk::gen::lang::max_count,
+                  (ut::size_of_enum<ldtk::gen::title_options_menu>() - 2) * ut::size_of_enum<ldtk::gen::lang>(),
               "title options menu is missing in system_texts.title_options_menus");
 
 constexpr bn::fixed MENUS_X = 40;
-constexpr bn::array<bn::fixed, (int)ldtk::gen::title_options_menu::max_count + 1> MENUS_Y{
+constexpr bn::array<bn::fixed, ut::size_of_enum<ldtk::gen::title_options_menu>() + 1> MENUS_Y{
     60,  // Lang: English
     80,  // Licenses
     100, // Back
@@ -115,8 +115,8 @@ void title_options::back_to_title()
 
 void title_options::move_cursor_idx(int diff)
 {
-    _cursor_idx = (_cursor_idx + diff + (int)ldtk::gen::title_options_menu::max_count) %
-                  (int)ldtk::gen::title_options_menu::max_count;
+    _cursor_idx = (_cursor_idx + diff + ut::size_of_enum<ldtk::gen::title_options_menu>()) %
+                  ut::size_of_enum<ldtk::gen::title_options_menu>();
 }
 
 void title_options::recolor_menu(int menu_idx)
@@ -149,12 +149,12 @@ void title_options::redraw_all()
 
     // Heading
     gen_head.generate_top_left(HEADING_POS,
-                               TITLE_MENUS[(int)config_save.language() * (int)ldtk::gen::title_menu::max_count +
+                               TITLE_MENUS[(int)config_save.language() * ut::size_of_enum<ldtk::gen::title_menu>() +
                                            (int)ldtk::gen::title_menu::options],
                                _heading_sprites);
 
     // Menus
-    for (int menu_idx = 0; menu_idx < (int)ldtk::gen::title_options_menu::max_count; ++menu_idx)
+    for (int menu_idx = 0; menu_idx < ut::size_of_enum<ldtk::gen::title_options_menu>(); ++menu_idx)
     {
         _menu_start_idxes[menu_idx] = static_cast<std::uint8_t>(_menus_sprites.size());
 
@@ -169,7 +169,7 @@ void title_options::redraw_all()
                                   LANG_NAMES[(int)config_save.language()], _menus_sprites);
         }
         // Back
-        else if (menu_idx == static_cast<int>(ldtk::gen::title_options_menu::max_count) - 1)
+        else if (menu_idx == ut::size_of_enum<ldtk::gen::title_options_menu>() - 1)
         {
             gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx],
                                   BUTTONS[(int)config_save.language() * BUTTONS_MAX_COUNT + BACK_BUTTON_IDX],
@@ -179,9 +179,9 @@ void title_options::redraw_all()
         {
             // `-2`: Exclude `lang` & `back`
             // `-1`: Exclude `lang`
-            const auto menu_text =
-                TITLE_OPTIONS_MENUS[(int)config_save.language() * ((int)ldtk::gen::title_options_menu::max_count - 2) +
-                                    (menu_idx - 1)];
+            const auto menu_text = TITLE_OPTIONS_MENUS[(int)config_save.language() *
+                                                           (ut::size_of_enum<ldtk::gen::title_options_menu>() - 2) +
+                                                       (menu_idx - 1)];
             gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx], menu_text, _menus_sprites);
         }
     }

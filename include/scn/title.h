@@ -2,6 +2,8 @@
 
 #include "scn/scene.h"
 
+#include "ut/enum_utils.h"
+
 #include <bn_array.h>
 #include <bn_sprite_ptr.h>
 #include <bn_vector.h>
@@ -30,7 +32,7 @@ private:
     bn::vector<bn::sprite_ptr, 28> _git_ver_sprites;
 
     bn::vector<bn::sprite_ptr, 100> _menus_sprites;
-    bn::array<std::uint8_t, (int)ldtk::gen::title_menu::max_count + 1> _menu_start_idxes;
+    bn::array<std::uint8_t, ut::size_of_enum<ldtk::gen::title_menu>() + 1> _menu_start_idxes;
 
     int _cursor_idx;
 };

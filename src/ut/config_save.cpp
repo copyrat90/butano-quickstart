@@ -1,5 +1,7 @@
 #include "ut/config_save.h"
 
+#include "ut/enum_utils.h"
+
 #include "ibn_sram_rw.h"
 
 #include <type_traits>
@@ -17,8 +19,7 @@ constexpr unsigned SAVE_LOCATION_1 = bn::sram::size() - 256;
 
 constexpr auto LANG_MIN = static_cast<ldtk::gen::lang>(0);
 constexpr auto LANG_MAX = static_cast<ldtk::gen::lang>(31);
-static_assert(static_cast<ldtk::gen::lang>(
-                  static_cast<std::underlying_type_t<ldtk::gen::lang>>(ldtk::gen::lang::max_count) - 1) <= LANG_MAX);
+static_assert(static_cast<ldtk::gen::lang>(ut::size_of_enum<ldtk::gen::lang>() - 1) <= LANG_MAX);
 
 constexpr std::uint32_t FOOTER = 0x5A7EF001; // SAVE FOOT
 
@@ -66,7 +67,7 @@ void config_save::set_language(ldtk::gen::lang lang_)
 
 void config_save::set_next_language()
 {
-    _lang = static_cast<ldtk::gen::lang>(((int)_lang + 1) % (int)ldtk::gen::lang::max_count);
+    _lang = static_cast<ldtk::gen::lang>(((int)_lang + 1) % ut::size_of_enum<ldtk::gen::lang>());
 }
 
 void config_save::measure(ibn::bit_stream_measurer& measurer) const

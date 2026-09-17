@@ -27,11 +27,11 @@ constexpr auto TITLE_MENUS = ut::get_config_entity(ldtk::gen::entity_ident::syst
                                  .get_field(ldtk::gen::entity_field_ident::ENTITY_system_texts_FIELD_title_menus)
                                  .get<bn::span<const bn::string_view>>();
 
-static_assert(TITLE_MENUS.size() == (int)ldtk::gen::title_menu::max_count * (int)ldtk::gen::lang::max_count,
+static_assert(TITLE_MENUS.size() == ut::size_of_enum<ldtk::gen::title_menu>() * ut::size_of_enum<ldtk::gen::lang>(),
               "title menu is missing in system_texts.title_menus");
 
 constexpr bn::fixed MENUS_X = 40;
-constexpr bn::array<bn::fixed, (int)ldtk::gen::title_menu::max_count> MENUS_Y{
+constexpr bn::array<bn::fixed, ut::size_of_enum<ldtk::gen::title_menu>()> MENUS_Y{
     80,  // Start
     100, // Options
 };
@@ -71,14 +71,14 @@ title::title(ldtk::gen::title_menu cursor, scene_context& ctx) : scene(ctx), _cu
         const auto prev_alignment = gen.alignment();
         gen.set_left_alignment();
 
-        for (int menu_idx = 0; menu_idx < (int)ldtk::gen::title_menu::max_count; ++menu_idx)
+        for (int menu_idx = 0; menu_idx < ut::size_of_enum<ldtk::gen::title_menu>(); ++menu_idx)
         {
             _menu_start_idxes[menu_idx] = static_cast<std::uint8_t>(_menus_sprites.size());
 
             gens.set_text_color(MENU_FONT, menu_idx == _cursor_idx ? ut::TEXT_HIGHLIGHT_COLOR : ut::TEXT_NORMAL_COLOR);
 
             const auto menu_text =
-                TITLE_MENUS[(int)config_save.language() * (int)ldtk::gen::title_menu::max_count + menu_idx];
+                TITLE_MENUS[(int)config_save.language() * ut::size_of_enum<ldtk::gen::title_menu>() + menu_idx];
             gen.generate_top_left(MENUS_X, MENUS_Y[menu_idx], menu_text, _menus_sprites);
         }
         _menu_start_idxes.back() = static_cast<std::uint8_t>(_menus_sprites.size());
@@ -126,7 +126,8 @@ bool title::update()
 
 void title::move_cursor_idx(int diff)
 {
-    _cursor_idx = (_cursor_idx + diff + (int)ldtk::gen::title_menu::max_count) % (int)ldtk::gen::title_menu::max_count;
+    _cursor_idx =
+        (_cursor_idx + diff + ut::size_of_enum<ldtk::gen::title_menu>()) % ut::size_of_enum<ldtk::gen::title_menu>();
 }
 
 void title::recolor_menu(int menu_idx)

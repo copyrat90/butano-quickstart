@@ -285,21 +285,12 @@
 			}
 		}
 	], "enums": [
-		{ "identifier": "lang", "uid": 2, "values": [
-			{ "id": "eng", "tileRect": null, "color": 12470831 },
-			{ "id": "kor", "tileRect": null, "color": 14120515 },
-			{ "id": "max_count", "tileRect": null, "color": 8421504 }
-		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
-		{ "identifier": "title_menu", "uid": 12, "values": [
-			{ "id": "start", "tileRect": null, "color": 12470831 },
-			{ "id": "options", "tileRect": null, "color": 14120515 },
-			{ "id": "max_count", "tileRect": null, "color": 8421504 }
-		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "lang", "uid": 2, "values": [ { "id": "eng", "tileRect": null, "color": 12470831 }, { "id": "kor", "tileRect": null, "color": 14120515 } ], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
+		{ "identifier": "title_menu", "uid": 12, "values": [ { "id": "start", "tileRect": null, "color": 12470831 }, { "id": "options", "tileRect": null, "color": 14120515 } ], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "title_options_menu", "uid": 13, "values": [
 			{ "id": "lang", "tileRect": null, "color": 12470831 },
 			{ "id": "licenses", "tileRect": null, "color": 14120515 },
-			{ "id": "back", "tileRect": null, "color": 15389866 },
-			{ "id": "max_count", "tileRect": null, "color": 8421504 }
+			{ "id": "back", "tileRect": null, "color": 15389866 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [], "levelFields": [] },
 	"levels": [
